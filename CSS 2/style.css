@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Edu+SA+Beginner:wght@500&display=swap");
+:root {
+  --color1: #617ac760;
+  --color2: sandybrown;
+  --color3: rgb(125, 239, 239);
+  --color4: whitesmoke;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: url(./galaxy.jpg) bottom/cover;
+  height: 100vh;
+  color: var(--color4);
+  font-family: "Edu SA Beginner", cursive;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card {
+  background: var(--color1);
+  /* width de 100% avec 25px de margin en left et right (méthode calc() */
+  width: calc(100% - 50px);
+  padding: 20px 20px 6px;
+  /* padding 3 valeurs -> le premier c'est en haut, milieu ->gauche/droite, le 3eme ->en bas */
+  box-shadow: 1px -1px 13px 0px black;
+  border-radius: 6px;
+  /* backdrop-filter: blur();->pour gérer le flou */
+  backdrop-filter: blur(0.5px);
+}
+.card:before {
+  /* Toujours mettre un content meme vide dans une pseudo-classes before/after */
+  content: "\269D";
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 1.5rem;
+}
+h1 {
+  margin-bottom: 24px;
+}
