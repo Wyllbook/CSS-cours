@@ -19,6 +19,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 .card {
   background: var(--color1);
@@ -40,20 +41,38 @@ body {
   font-size: 1.5rem;
 }
 h1 {
+  position: relative;
   margin-bottom: 24px;
 }
-
+h1::after {
+  content: "";
+  position: absolute;
+  background: var(--color4);
+  height: 1px;
+  width: 100%;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  animation: h1anim 5s ease-in-out forwards;
+  /* transform-origin -> point de départ de l'animation elle est sur center par défaut */
+  transform-origin: center;
+}
+@keyframes h1anim {
+  100% {
+    transform: translateX(-50%) scaleX(1);
+  }
+}
 .grid-container {
   display: grid;
   grid-template-columns: 20% 80%;
 }
 .polygon-container {
+  /* drop-shadow permet de mettre une ombre sur une image */
   filter: drop-shadow(-1px 5px 3px var(--color2));
   /* Mettre le parent en grid */
   place-self: center left;
 }
 .polygon {
-  position: relative;
   clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
   background: linear-gradient(135deg, var(--color4) 0%, var(--color1) 100%);
   height: 100px;
@@ -89,6 +108,7 @@ p::selection {
   display: flex;
   justify-content: space-around;
   margin: 20px 0 30px;
+  perspective: 40px;
 }
 
 input[type="checkbox"] {
@@ -98,6 +118,7 @@ input[type="checkbox"]:checked + label {
   background: var(--color2);
   color: var(--color3);
   transform: scale(1.1);
+  /* brightness ->propriété qui gère la luminosité; */
   filter: brightness(150%);
 }
 label {
@@ -109,6 +130,39 @@ label {
   transition: 0.2s;
   /* L'utilisateur ne pourra pas sélectionner le texte à l'intérieur des boutons */
   user-select: none;
+}
+
+/* first-of-type ->sélectionne le premier élément */
+label:first-of-type:hover {
+  /* infinite-> animation qui se repete à l'infini */
+  /* linear qui permet à l'animation d'etre régulière */
+  animation: label1 1s infinite linear;
+}
+/* On peut séquencer une animation ex: a 50% tu grossis de 40% et de 50 a 100% de l'animation tu retoure à ta taille initiale */
+@keyframes label1 {
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+label:nth-child(4):hover
+/* permet de choisir le 4eme enfant dans la classe "checkbox-container" */ {
+  animation: label2 3s infinite linear;
+}
+/* Pour la 3d ne pas oublier la perspective sur le parent,plus la perspectiv est petite plus elle est accentuée,plus elle est faible moins elle est accentuée */
+@keyframes label2 {
+  33% {
+    transform: translateZ(30px);
+  }
+  66% {
+    transform: translateZ(-40px);
+  }
+  100% {
+    transform: translateZ(0px);
+  }
 }
 .email {
   text-align: center;
@@ -139,4 +193,101 @@ input[type="email"]:focus::placeholder {
 button {
   cursor: pointer;
   background: var(--color2);
+  color: var(--color3);
+  border: none;
+  font-size: 1.3rem;
+  padding: 10px 20px;
+  border-radius: 150px;
+  margin: 0 auto;
+  display: block;
+  transition: 0.2s;
+}
+button:hover {
+  letter-spacing: 3px;
+}
+/* active -> quand on clique'souris baissé sur l'élément */
+button:active {
+  transform: scale(1.2);
+}
+/* hover ->survole l'élément */
+button:hover + a,
+a:hover {
+  visibility: visible;
+  transform: translateY(0);
+}
+a {
+  display: block;
+  color: var(--color4);
+  text-align: center;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: 0.4s;
+}
+a:visited {
+  color: var(--color4);
+}
+
+img {
+  height: 40px;
+  position: absolute;
+  filter: drop-shadow(0px 6px 3px rgba(199, 140, 12, 0.923));
+  z-index: -1;
+  animation: spaceship 10s infinite linear;
+}
+@keyframes spaceship {
+  0% {
+    top: 2%;
+    left: 2%;
+    transform: rotate(90deg);
+  }
+  10% {
+    top: 6%;
+    left: 30%;
+    transform: rotate(90deg);
+  }
+  20% {
+    top: 9%;
+    left: 60%;
+    transform: rotate(60deg);
+  }
+  30% {
+    top: 0%;
+    left: 80%;
+    transform: rotate(90deg);
+  }
+  40% {
+    top: 20%;
+    left: 120%;
+    transform: rotate(110deg);
+  }
+  50% {
+    top: 50%;
+    left: 80%;
+    transform: rotate(323deg);
+  }
+  60% {
+    top: 90%;
+    left: 90%;
+    transform: rotate(256deg);
+  }
+  70% {
+    top: 110%;
+    left: 50%;
+    transform: rotate(237deg);
+  }
+  80% {
+    top: 85%;
+    left: 30%;
+    transform: rotate(323deg);
+  }
+  90% {
+    top: 3%;
+    left: 15%;
+    transform: rotate(350deg);
+  }
+  100% {
+    top: 2%;
+    left: 2%;
+    transform: rotate(90deg);
+  }
 }
